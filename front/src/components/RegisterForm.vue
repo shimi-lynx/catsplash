@@ -1,44 +1,46 @@
 <template>
-  <div>
-    <h3>ユーザ登録</h3>
-    <label for="email">メールアドレス:</label>
-    <input id="email" v-model="email" />
-    <br />
-    <br />
-    <label for="password">パスワード:</label>
-    <input id="password" v-model="password" />
-    <br />
-    <br />
-    <label for="password_confirmation">パスワード（確認）:</label>
-    <input id="password_confirmation" v-model="password_confirmation" />
-    <br />
-    <br />
-    <button @click="accountRegister">登録</button>
+  <div class="container is-fluid">
+    <div class="columns is-centered is-marginless">
+      <div class="column is-half">
+        <div class="card">
+          <div class="card-content">
+            <h1 class="title">ユーザ登録</h1>
+            <b-field label="メールアドレス">
+              <b-input type="email" v-model="RegisterData.email" />
+            </b-field>
+            <b-field label="パスワード">
+              <b-input type="password" password-reveal v-model="RegisterData.password" />
+            </b-field>
+            <b-field label="パスワード（確認）">
+              <b-input
+                type="password"
+                password-reveal
+                v-model="RegisterData.password_confirmation"
+              />
+            </b-field>
+            <b-button type="is-success" @click="accountRegister">登録</b-button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
   data() {
     return {
-      email: "",
-      password: "",
-      password_confirmation: ""
+      RegisterData: {
+        email: "",
+        password: "",
+        password_confirmation: ""
+      }
     };
   },
   methods: {
-    accountRegister() {
-      axios
-        .post("/auth", {
-          email: this.email,
-          password: this.password,
-          password_confirmation: this.password_confirmation
-        })
-        .then(response => {
-          console.log(response.headers);
-        });
+    async accountRegister() {
+      await this.$store.dispatch("auth/accountRegister", this.RegisterData);
+      this.$router.push("/");
     }
   }
 };
