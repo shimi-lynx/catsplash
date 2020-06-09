@@ -23,6 +23,8 @@ services:
       - ~/.bashrc:/root/.bashrc:ro
       - ~/.bash_profile:/etc/profile:ro
     command: yarn serve
+    # command: /bin/ash
+    # tty: true
     # depends_on:
     #   - back
     ports:
@@ -39,6 +41,8 @@ services:
       - ~/.bashrc:/root/.bashrc:ro
       - ~/.bash_profile:/etc/profile:ro
     command: rails s -p 3000 -b '0.0.0.0'
+    # command: /bin/ash
+    # tty: true
     depends_on:
       - db
     ports:
