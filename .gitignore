@@ -1,2 +1,2 @@
-volume_db/
-api_test/
+/volume_db
+/api_test

@@ -24,8 +24,8 @@ export default {
   data() {
     return {
       LoginData: {
-        email: "",
-        password: ""
+        email: "hoge@email.com",
+        password: "hogehoge"
       }
     };
   },

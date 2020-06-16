@@ -7,9 +7,17 @@
 
       <template slot="end">
         <b-navbar-item v-if="isLogin" tag="div">
+          <div class="button block" @click="isActive = !isActive">
+            <b-icon icon="paw"></b-icon>
+            <div>Posting Photo</div>
+          </div>
+        </b-navbar-item>
+        <b-navbar-item v-if="isLogin" tag="div">
           <div style="padding-right: 10px;">{{this.$store.state.auth.user.data.email}}</div>
           <div class="buttons">
-            <a class="button is-warning" @click="logout">Log out</a>
+            <a class="button is-warning" @click="logout">
+              <b-icon icon="logout"></b-icon>
+            </a>
           </div>
         </b-navbar-item>
         <b-navbar-item v-else tag="div">
@@ -19,13 +27,21 @@
         </b-navbar-item>
       </template>
     </b-navbar>
+    <!-- 写真投稿フォームコンポーネント -->
+    <PostPhotoForm :isActive="isActive" />
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import PostPhotoForm from "./PostPhotoForm.vue";
 
 export default {
+  data() {
+    return {
+      isActive: false
+    };
+  },
   methods: {
     toLoginPage() {
       this.$router.push("/auth", () => {});
@@ -37,6 +53,9 @@ export default {
   },
   computed: {
     ...mapGetters({ isLogin: "auth/isLogin" })
+  },
+  components: {
+    PostPhotoForm
   }
 };
 </script>
