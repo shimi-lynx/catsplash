@@ -27,19 +27,7 @@
         </b-navbar-item>
       </template>
     </b-navbar>
-    <!-- <div class="columns is-centered is-marginless">
-      <div class="column is-one-quarter"></div>
-      <div class="column is-half">
-        <b-message
-          title="posting photo"
-          :active.sync="isActive"
-          aria-close-label="Close message"
-          type="is-warning"
-        >
-          <input />
-        </b-message>
-      </div>
-    </div>-->
+    <!-- 写真投稿フォームコンポーネント -->
     <PostPhotoForm :isActive="isActive" />
   </div>
 </template>

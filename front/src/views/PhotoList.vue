@@ -1,8 +1,12 @@
 <template>
   <div>
     <h3>Photo List</h3>
-    <b-button @click="getstorage" type="is-warning">get json</b-button>
+
+    <br />
+    <b-button @click="replaceTest" type="is-warning">get</b-button>
     <p>{{hoge}}</p>
+    <br />
+    <p>{{fuga}}</p>
   </div>
 </template>
 
@@ -11,7 +15,8 @@ import axios from "axios";
 export default {
   data() {
     return {
-      hoge: ""
+      hoge: "",
+      fuga: ""
     };
   },
   methods: {
@@ -31,6 +36,16 @@ export default {
       }
 
       console.log(sessionStorage);
+    },
+    getStateUser() {
+      this.hoge = this.$store.state.auth.user;
+      this.fuga = this.$store.state.auth.header;
+    },
+    replaceTest() {
+      const targetUrl =
+        "https://shimi-lynx-cat.s3.ap-northeast-1.amazonaws.com/uploads/photo/hogehoge/fugafuga.jpg";
+      this.hoge = process.env.VUE_APP_S3_URL;
+      this.fuga = targetUrl.replace(process.env.VUE_APP_S3_URL, "");
     }
   }
 };

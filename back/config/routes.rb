@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   namespace :api do
-      get 'photos/', to: 'photos#presigned_post_data', as: 'upload'
+      get 'photos/', to: 'photos#presigned_post_data', as: 'photo_upload'
+      post 'photos/', to: 'photos#create', as: 'new_photo_upload'
   end
   scope :api do
     mount_devise_token_auth_for 'Account', at: 'auth'

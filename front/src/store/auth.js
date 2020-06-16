@@ -1,6 +1,16 @@
 import axios from "axios";
 
+// let initUserData = () => {
+//   if (sessionStorage.AuthData) {
+//     const strageData = JSON.parse(sessionStorage.getItem("AuthData"));
+//     if (strageData.auth.user) {
+//       return strageData.auth.user;
+//     }
+//   }
+// };
+
 const state = {
+  // user: initUserData(),
   user: null,
   header: null
 };

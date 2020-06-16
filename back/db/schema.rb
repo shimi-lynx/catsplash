@@ -38,23 +38,23 @@ ActiveRecord::Schema.define(version: 2020_06_03_083257) do
   end
 
   create_table "likes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "accounts_id", null: false
-    t.bigint "photos_id", null: false
+    t.bigint "account_id", null: false
+    t.bigint "photo_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["accounts_id"], name: "index_likes_on_accounts_id"
-    t.index ["photos_id"], name: "index_likes_on_photos_id"
+    t.index ["account_id"], name: "index_likes_on_account_id"
+    t.index ["photo_id"], name: "index_likes_on_photo_id"
   end
 
   create_table "photos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "filename", null: false
-    t.bigint "accounts_id", null: false
+    t.bigint "account_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["accounts_id"], name: "index_photos_on_accounts_id"
+    t.index ["account_id"], name: "index_photos_on_account_id"
   end
 
-  add_foreign_key "likes", "accounts", column: "accounts_id"
-  add_foreign_key "likes", "photos", column: "photos_id"
-  add_foreign_key "photos", "accounts", column: "accounts_id"
+  add_foreign_key "likes", "accounts"
+  add_foreign_key "likes", "photos"
+  add_foreign_key "photos", "accounts"
 end
