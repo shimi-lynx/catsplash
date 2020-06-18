@@ -3,6 +3,7 @@
     <div class="column is-one-quarter"></div>
     <div class="column is-half">
       <b-message
+        class="b-message__overlay"
         title="posting photo"
         :active.sync="isActive"
         :closable="false"
@@ -11,7 +12,7 @@
       >
         <div class="content">
           <div class="columns is-centered is-marginless" @change="onFileChange">
-            <div class="columns is-marginless">
+            <div class="columns is-marginless" v-if="!preview">
               <b-field>
                 <b-upload multiple drag-drop>
                   <section class="section">
@@ -25,16 +26,18 @@
                 </b-upload>
               </b-field>
             </div>
-            <div class="columns is-marginless">
-              <output class="trim img" v-if="preview">
+            <div class="columns has-text-centered is-marginless">
+              <output class="column trim img" v-if="preview">
                 <img :src="preview" alt />
               </output>
             </div>
           </div>
           <div class="columns is-centered">
-            <div class="column is-four-fifths"></div>
-            <div class="column"></div>
-            <div class="column">
+            <div class="column is-one-quarter">
+              <b-button type="is-warning" v-if="preview" @click="reset">キャンセル</b-button>
+            </div>
+            <div class="column is-one-quarter"></div>
+            <div class="column is-one-quarter">
               <b-button type="is-dark" v-if="preview" @click="submit">送信</b-button>
             </div>
           </div>
@@ -164,6 +167,10 @@ export default {
   max-height: 300px;
   width: auto;
   height: auto;
-  padding-left: 12px;
+}
+
+.b-message__overlay {
+  z-index: 1;
+  position: fixed;
 }
 </style>
