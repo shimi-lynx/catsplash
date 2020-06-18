@@ -19,6 +19,11 @@ class Api::PhotosController < ApplicationController
     end
   end
 
+  def index
+    @photo = Photo.all
+    render json: @photo, each_serializer: PhotoSerializer
+  end
+  
   private
   def photo_params
     params.require(:photo).permit(:filename, :account_id)

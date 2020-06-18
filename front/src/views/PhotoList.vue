@@ -1,51 +1,36 @@
 <template>
-  <div>
-    <h3>Photo List</h3>
-
-    <br />
-    <b-button @click="replaceTest" type="is-warning">get</b-button>
-    <p>{{hoge}}</p>
-    <br />
-    <p>{{fuga}}</p>
+  <div class="container">
+    <div class="columns is-multiline">
+      <Photo v-for="item in itemUrls" :key="item.id" :src="item.filename" />
+    </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import Photo from "../components/Photo";
+
 export default {
+  components: {
+    Photo
+  },
   data() {
     return {
-      hoge: "",
-      fuga: ""
+      itemUrls: null
     };
   },
   methods: {
-    async getjson() {
-      const HOGE = await axios.get("/photos", {
-        headers: this.$store.state.auth.header
-      });
-      console.log(this.$store.state.auth.header);
-      this.hoge = HOGE;
-    },
-    getstorage() {
-      if (sessionStorage.AuthData) {
-        this.hoge = JSON.parse(sessionStorage.getItem("AuthData"));
-        // this.hoge = this.hoge.auth.header.client;
-      } else {
-        this.hoge = "NULLだよー";
-      }
-
-      console.log(sessionStorage);
-    },
-    getStateUser() {
-      this.hoge = this.$store.state.auth.user;
-      this.fuga = this.$store.state.auth.header;
-    },
-    replaceTest() {
-      const targetUrl =
-        "https://shimi-lynx-cat.s3.ap-northeast-1.amazonaws.com/uploads/photo/hogehoge/fugafuga.jpg";
-      this.hoge = process.env.VUE_APP_S3_URL;
-      this.fuga = targetUrl.replace(process.env.VUE_APP_S3_URL, "");
+    async getPhotoLists() {
+      const response = await axios.get("/photos");
+      this.itemUrls = response.data;
+    }
+  },
+  watch: {
+    $route: {
+      async handler() {
+        await this.getPhotoLists();
+      },
+      immediate: true
     }
   }
 };

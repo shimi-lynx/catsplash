@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import PhotoList from "../views/PhotoList.vue";
+import TestPhotoList from "../views/TestPhotoList.vue";
 import Auth from "../views/Auth.vue";
 
 Vue.use(VueRouter);
@@ -15,6 +16,11 @@ const routes = [
     path: "/auth",
     name: "Auth",
     component: Auth
+  },
+  {
+    path: "/test",
+    name: "TestPhotoList",
+    component: TestPhotoList
   }
 ];
 

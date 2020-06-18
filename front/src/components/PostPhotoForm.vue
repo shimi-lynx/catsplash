@@ -5,6 +5,7 @@
       <b-message
         title="posting photo"
         :active.sync="isActive"
+        :closable="false"
         aria-close-label="Close message"
         type="is-warning"
       >
@@ -58,6 +59,7 @@ export default {
     return {
       preview: null,
       targetPhoto: null,
+      isPhotoFormActive: this.isActive,
       sendPhotoDataToDB: {
         photo: {
           account_id: null,
@@ -101,7 +103,7 @@ export default {
     async submit() {
       // presigned_postを呼び出してS3へ送る情報を含むエンドポイントを取得
       const presignedObject = await axios
-        .get(`/photos?filename=${this.targetPhoto.name}`)
+        .get(`/photos/s3?filename=${this.targetPhoto.name}`)
         .then(response => response.data)
         .catch(e => console.log(e.message));
 
@@ -136,12 +138,21 @@ export default {
           );
         })
         .catch(e => console.log(e.message));
+
+      // DBにデータを保存
       this.doSendPhotoData();
+      // プレビュー画像を削除
+      this.reset();
+      // フォーム画面を閉じる
+      this.closeForm();
     },
     async doSendPhotoData() {
       await axios
         .post("/photos", this.sendPhotoDataToDB)
         .then(response => console.log(response));
+    },
+    closeForm() {
+      this.$parent.isActive = false;
     }
   }
 };
