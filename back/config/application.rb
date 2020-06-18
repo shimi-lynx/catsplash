@@ -34,6 +34,9 @@ module RailsApp
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
 
+    # 日本語をデフォルトに
+    config.i18n.default_locale = :ja
+
     # Permit cross origin
     config.middleware.insert_before 0, Rack::Cors do
       allow do
