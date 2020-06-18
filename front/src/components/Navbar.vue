@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-navbar type="is-dark">
+    <b-navbar type="is-dark" fixed-top="true">
       <template slot="brand">
         <b-navbar-item tag="router-link" :to="{ path: '/' }" style="font-size:30px;">CatSplash</b-navbar-item>
       </template>
