@@ -1,6 +1,6 @@
 <template>
   <div class="content">
-    <div v-if="is_account_confirmation_success">{{success()}}</div>
+    <div v-if="is_account_confirmation_success">{{ success() }}</div>
     <b-tabs v-model="activeTab" position="is-centered" type="is-toggle">
       <b-tab-item label="ログイン">
         <LoginForm></LoginForm>

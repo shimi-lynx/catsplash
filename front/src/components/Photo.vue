@@ -1,9 +1,7 @@
 <template>
-  <div class="column is-4">
-    <figure>
-      <img :src="`${s3url}${src}`" />
-    </figure>
-  </div>
+  <figure class="figure_padding">
+    <img :src="`${s3url}${src}`" />
+  </figure>
 </template>
 
 <script>
@@ -16,3 +14,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.figure_padding {
+  padding-bottom: 8px;
+}
+</style>
