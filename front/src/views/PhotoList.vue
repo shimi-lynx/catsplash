@@ -1,7 +1,15 @@
 <template>
   <div class="container">
-    <div class="columns is-multiline">
-      <Photo v-for="item in itemUrls" :key="item.id" :src="item.filename" />
+    <div class="is-3-columns-grid">
+      <div>
+        <Photo v-for="item in column_1_photoData" :key="item.id" :src="item.filename" />
+      </div>
+      <div>
+        <Photo v-for="item in column_2_photoData" :key="item.id" :src="item.filename" />
+      </div>
+      <div>
+        <Photo v-for="item in column_3_photoData" :key="item.id" :src="item.filename" />
+      </div>
     </div>
   </div>
 </template>
@@ -16,13 +24,35 @@ export default {
   },
   data() {
     return {
-      itemUrls: null
+      column_1_photoData: null,
+      column_2_photoData: null,
+      column_3_photoData: null
     };
   },
   methods: {
     async getPhotoLists() {
       const response = await axios.get("/photos");
-      this.itemUrls = response.data;
+      let i = 3;
+      let column_1_photoData = [];
+      let column_2_photoData = [];
+      let column_3_photoData = [];
+
+      for (let item of response.data) {
+        if (i % 3 === 0) {
+          column_1_photoData.push(item);
+        }
+        if (i % 3 === 1) {
+          column_2_photoData.push(item);
+        }
+        if (i % 3 === 2) {
+          column_3_photoData.push(item);
+        }
+        i++;
+      }
+
+      this.column_1_photoData = column_1_photoData;
+      this.column_2_photoData = column_2_photoData;
+      this.column_3_photoData = column_3_photoData;
     }
   },
   watch: {
@@ -35,3 +65,11 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.is-3-columns-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(338px, 1fr));
+  grid-column-gap: 15px;
+}
+</style>
