@@ -3,12 +3,14 @@ import Vuex from "vuex";
 import createPersistedState from "vuex-persistedstate";
 
 import auth from "./auth.js";
+import toast from "./toast.js";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   modules: {
-    auth
+    auth,
+    toast
   },
   plugins: [
     createPersistedState({

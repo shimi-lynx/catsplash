@@ -63,6 +63,7 @@ export default {
       preview: null,
       targetPhoto: null,
       isPhotoFormActive: this.isActive,
+      limitFileSize: 512000,
       sendPhotoDataToDB: {
         photo: {
           account_id: null,
@@ -76,12 +77,24 @@ export default {
       // 何も選択されていなかったら処理中断
       if (event.target.files.length === 0) {
         this.reset();
+        this.$store.dispatch("toast/error", "何も選択されませんでした！");
         return false;
       }
 
       // ファイルが画像ではなかったら処理中断
       if (!event.target.files[0].type.match("image.*")) {
         this.reset();
+        this.$store.dispatch("toast/error", "画像以外が選択されています！");
+        return false;
+      }
+
+      // ファイルサイズが500KB以上だったら処理中断
+      if (event.target.files[0].size >= this.limitFileSize) {
+        this.reset();
+        this.$store.dispatch(
+          "toast/error",
+          "ファイルサイズの上限は500KBです！"
+        );
         return false;
       }
 
