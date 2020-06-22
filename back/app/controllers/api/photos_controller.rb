@@ -5,6 +5,7 @@ class Api::PhotosController < ApplicationController
       key: "uploads/photo/#{SecureRandom.uuid}/${filename}",
       success_action_status: '201',
       acl: 'public-read',
+      content_length_range: 0..512000,
       expires: Time.now + 60)
       
       render json: {url: @presigned_object.url, fields: @presigned_object.fields}
