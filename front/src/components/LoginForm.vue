@@ -25,7 +25,7 @@ export default {
     return {
       LoginData: {
         email: "hoge@email.com",
-        password: "hogehoge"
+        password: "password"
       }
     };
   },

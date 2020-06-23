@@ -1,18 +1,10 @@
 import axios from "axios";
-
-// let initUserData = () => {
-//   if (sessionStorage.AuthData) {
-//     const strageData = JSON.parse(sessionStorage.getItem("AuthData"));
-//     if (strageData.auth.user) {
-//       return strageData.auth.user;
-//     }
-//   }
-// };
+import httpResponse from "../constant.js";
 
 const state = {
-  // user: initUserData(),
   user: null,
-  header: null
+  header: null,
+  httpresponse: null
 };
 
 const getters = {
@@ -25,28 +17,57 @@ const mutations = {
   },
   setHeader(state, header) {
     state.header = header;
+  },
+  setHttpresponse(state, code) {
+    state.httpresponse = code;
   }
 };
 
 const actions = {
   async accountRegister(context, data) {
-    const apiResponse = await axios.post("/auth", data);
-    console.log(apiResponse.headers["access-token"]);
-    context.commit("setUser", apiResponse.data);
-    context.commit("setHeader", apiResponse.headers);
+    await axios
+      .post("/auth", data)
+      .then(response => {
+        console.log(response);
+        context.commit("setHttpresponse", response.status);
+      })
+      .catch(e => {
+        context.dispatch("toast/error", "入力内容に不備があります", {
+          root: true
+        });
+        console.log(e.message);
+      });
   },
   async login(context, data) {
-    const apiResponse = await axios.post("/auth/sign_in", data);
+    const apiResponse = await axios.post("/auth/sign_in", data).catch(e => {
+      // 認証エラーの処理
+      if (e.response.status === httpResponse.UN_AUTHORIZED) {
+        context.dispatch(
+          "toast/error",
+          "メールアドレスまたはパスワードに誤りがあります",
+          { root: true }
+        );
+      } else {
+        context.dispatch("toast/error", "ログインに失敗しました", {
+          root: true
+        });
+      }
+      console.log(e.response);
+    });
     context.commit("setUser", apiResponse.data);
     context.commit("setHeader", apiResponse.headers);
+    context.dispatch("toast/success", "ログインしました", { root: true });
     console.log(apiResponse);
   },
   async logout(context) {
-    const apiResponse = await axios.delete("/auth/sign_out", {
-      headers: state.header
-    });
+    const apiResponse = await axios
+      .delete("/auth/sign_out", {
+        headers: state.header
+      })
+      .catch(e => console.log(e.message));
     context.commit("setHeader", null);
     context.commit("setUser", null);
+    context.dispatch("toast/success", "ログアウトしました", { root: true });
     console.log(apiResponse);
   }
 };

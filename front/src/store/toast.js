@@ -16,7 +16,7 @@ const actions = {
   async success(context, message) {
     context.commit("setMessage", message);
     Toast.open({
-      duration: 7000,
+      duration: 5000,
       message: message,
       type: "is-success"
     });
@@ -24,7 +24,7 @@ const actions = {
   async error(context, message) {
     context.commit("setMessage", message);
     Toast.open({
-      duration: 7000,
+      duration: 5000,
       message: message,
       type: "is-danger"
     });

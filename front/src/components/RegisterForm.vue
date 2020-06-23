@@ -27,6 +27,8 @@
 </template>
 
 <script>
+import httpResponse from "../constant.js";
+
 export default {
   data() {
     return {
@@ -39,8 +41,14 @@ export default {
   },
   methods: {
     async accountRegister() {
-      await this.$store.dispatch("auth/accountRegister", this.RegisterData);
-      this.$router.push("/");
+      await this.$store
+        .dispatch("auth/accountRegister", this.RegisterData)
+        .catch(e => console.log(e));
+
+      // ユーザ登録API成功なら画面遷移
+      if (this.$store.state.auth.httpresponse === httpResponse.SUCCSESS) {
+        this.$router.push("/auth/confirm", () => {});
+      }
     }
   }
 };
