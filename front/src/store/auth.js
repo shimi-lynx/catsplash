@@ -8,7 +8,9 @@ const state = {
 };
 
 const getters = {
-  isLogin: state => !!state.user
+  isLogin: state => !!state.user,
+  currentUser: state => (state.user ? state.user.data.name : ""),
+  currentUserID: state => (state.user ? state.user.data.id : "")
 };
 
 const mutations = {
@@ -68,6 +70,12 @@ const actions = {
     context.commit("setHeader", null);
     context.commit("setUser", null);
     context.dispatch("toast/success", "ログアウトしました", { root: true });
+    console.log("削除前");
+    console.log(window.sessionStorage.getItem("AuthData"));
+    window.sessionStorage.removeItem("AuthData");
+    window.sessionStorage.clear();
+    console.log("削除後");
+    console.log(window.sessionStorage.getItem("AuthData"));
     console.log(apiResponse);
   }
 };

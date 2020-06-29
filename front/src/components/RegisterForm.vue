@@ -5,6 +5,9 @@
         <div class="card">
           <div class="card-content">
             <h1 class="title">ユーザ登録</h1>
+            <b-field label="名前">
+              <b-input v-model="RegisterData.name" />
+            </b-field>
             <b-field label="メールアドレス">
               <b-input type="email" v-model="RegisterData.email" />
             </b-field>
@@ -33,6 +36,7 @@ export default {
   data() {
     return {
       RegisterData: {
+        name: "",
         email: "",
         password: "",
         password_confirmation: ""
@@ -41,6 +45,11 @@ export default {
   },
   methods: {
     async accountRegister() {
+      if (!this.RegisterData.name) {
+        this.$store.dispatch("toast/error", "名前を入力して下さい");
+        return false;
+      }
+
       await this.$store
         .dispatch("auth/accountRegister", this.RegisterData)
         .catch(e => console.log(e));

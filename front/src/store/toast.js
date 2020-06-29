@@ -21,6 +21,14 @@ const actions = {
       type: "is-success"
     });
   },
+  async info(context, message) {
+    context.commit("setMessage", message);
+    Toast.open({
+      duration: 5000,
+      message: message,
+      type: "is-info"
+    });
+  },
   async error(context, message) {
     context.commit("setMessage", message);
     Toast.open({

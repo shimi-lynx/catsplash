@@ -2,23 +2,26 @@
   <div>
     <b-navbar type="is-dark" fixed-top="true">
       <template slot="brand">
-        <b-navbar-item tag="router-link" :to="{ path: '/' }" style="font-size:30px;">CatSplash</b-navbar-item>
+        <b-navbar-item tag="router-link" :to="{ path: '/' }" style="font-size:28px;">CatSplash</b-navbar-item>
       </template>
 
       <template slot="end">
-        <b-navbar-item v-if="isLogin" tag="div">
-          <div class="button block" @click="isActive = !isActive">
+        <b-navbar-item tag="div">
+          <div class="button block" @click="onPostingPhotoClick">
             <b-icon icon="paw"></b-icon>
             <div>Posting Photo</div>
           </div>
         </b-navbar-item>
+        <div class="column is-2 is-marginless"></div>
         <b-navbar-item v-if="isLogin" tag="div">
-          <div style="padding-right: 10px;">{{this.$store.state.auth.user.data.email}}</div>
-          <div class="buttons">
-            <a class="button is-warning" @click="logout">
-              <b-icon icon="logout"></b-icon>
-            </a>
-          </div>
+          <div style="padding-right: 10px;">{{currentUser}}</div>
+          <b-tooltip label="ログアウト" type="is-light" position="is-bottom">
+            <div class="buttons">
+              <a class="button is-warning" @click="logout">
+                <b-icon icon="logout"></b-icon>
+              </a>
+            </div>
+          </b-tooltip>
         </b-navbar-item>
         <b-navbar-item v-else tag="div">
           <div class="buttons">
@@ -49,10 +52,20 @@ export default {
     async logout() {
       await this.$store.dispatch("auth/logout");
       this.$router.push("/", () => {});
+    },
+    onPostingPhotoClick() {
+      if (!this.isLogin) {
+        this.$store.dispatch(
+          "toast/info",
+          "写真投稿はログイン時のみご利用頂けます"
+        );
+        return false;
+      }
+      this.isActive = !this.isActive;
     }
   },
   computed: {
-    ...mapGetters({ isLogin: "auth/isLogin" })
+    ...mapGetters({ isLogin: "auth/isLogin", currentUser: "auth/currentUser" })
   },
   components: {
     PostPhotoForm
