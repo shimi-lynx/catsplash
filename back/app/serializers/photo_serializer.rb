@@ -1,5 +1,5 @@
 class PhotoSerializer < ActiveModel::Serializer
-  attributes :id, :filename, :is_like
+  attributes :id, :filename, :is_like, :likes_count
   belongs_to :account
 
   def is_like

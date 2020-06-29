@@ -13,6 +13,7 @@
               :type="{'is-danger': item.is_like}"
               :class="{'rotateY720': item.is_like }"
             ></b-icon>
+            <div>{{item.likes_count}}</div>
           </div>
         </div>
       </div>
@@ -57,7 +58,10 @@ export default {
           .delete(`/photos/like`, {
             data: sendLikeData
           })
-          .then(() => (this.item.is_like = false))
+          .then(() => {
+            this.item.is_like = false;
+            this.item.likes_count -= 1;
+          })
           .catch(error => {
             this.$store.dispatch("toast/error", "いいね解除に失敗しました");
             console.log(error);
@@ -65,7 +69,10 @@ export default {
       } else {
         axios
           .post(`/photos/like`, sendLikeData)
-          .then(() => (this.item.is_like = true))
+          .then(() => {
+            this.item.is_like = true;
+            this.item.likes_count += 1;
+          })
           .catch(error => {
             this.$store.dispatch("toast/error", "いいねに失敗しました");
             console.log(error);
