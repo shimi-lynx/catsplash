@@ -1,4 +1,5 @@
 class Api::PhotosController < ApplicationController
+  skip_before_action :authenticate_account!, only: [:index]
 
   def presigned_post_data
     @presigned_object = S3_BUCKET.presigned_post(
@@ -21,8 +22,13 @@ class Api::PhotosController < ApplicationController
   end
 
   def index
-    @photo = Photo.all
-    render json: @photo, each_serializer: PhotoSerializer
+    liked_user = current_account ? current_account.id.presence || "" : ""
+    puts "liked_user: #{liked_user}"
+    puts "current_account: #{current_account}"
+    # puts "current_accountID: #{current_account.id}"
+    
+    photo = Photo.preload(:account)
+    render json: photo, each_serializer: PhotoSerializer, liked_user: liked_user
   end
   
   private

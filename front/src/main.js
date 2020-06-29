@@ -6,23 +6,14 @@ import axios from "axios";
 import Buefy from "buefy";
 import "buefy/dist/buefy.css";
 import "@mdi/font/css/materialdesignicons.css";
+import interceptorsSetup from "./interceptors";
 
 Vue.config.productionTip = false;
 
 axios.defaults.baseURL = process.env.VUE_APP_BASE_URL;
 
-// sessionStorage にトークンのヘッダがあったらaxios の全リクエストのヘッダにトークンを差し込む設定する
-if (sessionStorage.AuthData) {
-  const strageData = JSON.parse(sessionStorage.getItem("AuthData"));
-
-  if (strageData.auth.header) {
-    axios.interceptors.request.use(function(config) {
-      config.headers = strageData.auth.header;
-
-      return config;
-    });
-  }
-}
+// loginした後にauth ヘッダー情報をaxiosのインターセプターでセットする処理
+interceptorsSetup();
 
 Vue.use(Buefy);
 

@@ -7,5 +7,6 @@ class Account < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
   include DeviseTokenAuth::Concerns::User
 
-  has_many :photos, dependent: :destroy
+  has_many :photos
+  has_many :likes, dependent: :destroy
 end

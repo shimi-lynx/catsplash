@@ -2,13 +2,13 @@
   <div class="container">
     <div class="is-3-columns-grid">
       <div>
-        <Photo v-for="item in column_1_photoData" :key="item.id" :src="item.filename" />
+        <Photo v-for="item in column_1_photoData" :key="item.id" :item="item" />
       </div>
       <div>
-        <Photo v-for="item in column_2_photoData" :key="item.id" :src="item.filename" />
+        <Photo v-for="item in column_2_photoData" :key="item.id" :item="item" />
       </div>
       <div>
-        <Photo v-for="item in column_3_photoData" :key="item.id" :src="item.filename" />
+        <Photo v-for="item in column_3_photoData" :key="item.id" :item="item" />
       </div>
     </div>
   </div>
@@ -17,6 +17,7 @@
 <script>
 import axios from "axios";
 import Photo from "../components/Photo";
+import { mapGetters } from "vuex";
 
 export default {
   components: {
@@ -26,12 +27,19 @@ export default {
     return {
       column_1_photoData: null,
       column_2_photoData: null,
-      column_3_photoData: null
+      column_3_photoData: null,
+      params: {
+        photo: {
+          account_id: 9
+        }
+      }
     };
   },
   methods: {
     async getPhotoLists() {
-      const response = await axios.get("/photos");
+      console.log("start get photo data");
+      const response = await axios.get("/photos", this.params);
+      console.log(response);
       let i = 3;
       let column_1_photoData = [];
       let column_2_photoData = [];
@@ -54,6 +62,9 @@ export default {
       this.column_2_photoData = column_2_photoData;
       this.column_3_photoData = column_3_photoData;
     }
+  },
+  computed: {
+    ...mapGetters({ currentUserID: "auth/currentUserID" })
   },
   watch: {
     $route: {

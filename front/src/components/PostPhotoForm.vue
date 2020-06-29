@@ -1,7 +1,8 @@
 <template>
   <div class="columns is-centered is-marginless">
-    <div class="column is-one-quarter"></div>
-    <div class="column is-half">
+    <div class="column is-3"></div>
+    <div class="column is-3"></div>
+    <div class="column is-4">
       <b-message
         class="b-message__overlay"
         title="posting photo"
@@ -62,7 +63,6 @@ export default {
     return {
       preview: null,
       targetPhoto: null,
-      isPhotoFormActive: this.isActive,
       limitFileSize: 512000,
       sendPhotoDataToDB: {
         photo: {
@@ -183,7 +183,7 @@ export default {
 }
 
 .b-message__overlay {
-  z-index: 1;
+  z-index: 10;
   position: fixed;
 }
 </style>

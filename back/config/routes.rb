@@ -3,6 +3,8 @@ Rails.application.routes.draw do
       get 'photos/s3', to: 'photos#presigned_post_data', as: 'photo_upload'
       get 'photos/', to: 'photos#index', as: 'index_photo'
       post 'photos/', to: 'photos#create', as: 'create_photo'
+      post 'photos/like', to: 'likes#like', as: 'create_like'
+      delete 'photos/like', to: 'likes#unlike', as: 'delete_like'
   end
   scope :api do
     mount_devise_token_auth_for 'Account', at: 'auth'
