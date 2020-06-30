@@ -1,8 +1,8 @@
 <template>
-  <div class="columns is-centered is-marginless">
-    <div class="column is-3"></div>
-    <div class="column is-3"></div>
-    <div class="column is-4">
+  <div class="columns is-centered">
+    <div class="column is-3 is_paddingless"></div>
+    <div class="column is-3 is_paddingless"></div>
+    <div class="column is-4 is_paddingless">
       <b-message
         class="b-message__overlay"
         title="posting photo"
@@ -185,5 +185,6 @@ export default {
 .b-message__overlay {
   z-index: 10;
   position: fixed;
+  top: 65px;
 }
 </style>

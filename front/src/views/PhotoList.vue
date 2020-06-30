@@ -1,14 +1,17 @@
 <template>
-  <div class="container">
-    <div class="is-3-columns-grid">
-      <div>
-        <Photo v-for="item in column_1_photoData" :key="item.id" :item="item" />
-      </div>
-      <div>
-        <Photo v-for="item in column_2_photoData" :key="item.id" :item="item" />
-      </div>
-      <div>
-        <Photo v-for="item in column_3_photoData" :key="item.id" :item="item" />
+  <div>
+    <Hero></Hero>
+    <div class="container">
+      <div class="is-3-columns-grid">
+        <div>
+          <Photo v-for="item in column_1_photoData" :key="item.id" :item="item" />
+        </div>
+        <div>
+          <Photo v-for="item in column_2_photoData" :key="item.id" :item="item" />
+        </div>
+        <div>
+          <Photo v-for="item in column_3_photoData" :key="item.id" :item="item" />
+        </div>
       </div>
     </div>
   </div>
@@ -17,11 +20,13 @@
 <script>
 import axios from "axios";
 import Photo from "../components/Photo";
+import Hero from "../components/Hero";
 import { mapGetters } from "vuex";
 
 export default {
   components: {
-    Photo
+    Photo,
+    Hero
   },
   data() {
     return {
