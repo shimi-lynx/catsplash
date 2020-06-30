@@ -27,7 +27,7 @@ class Api::PhotosController < ApplicationController
     puts "current_account: #{current_account}"
     # puts "current_accountID: #{current_account.id}"
     
-    photo = Photo.preload(:account)
+    photo = Photo.preload(:account).order(id: "DESC")
     render json: photo, each_serializer: PhotoSerializer, liked_user: liked_user
   end
   
