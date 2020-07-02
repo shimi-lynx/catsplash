@@ -25,12 +25,10 @@ services:
     # command: yarn serve
     command: /bin/ash
     tty: true
-    # depends_on:
-    #   - back
+    depends_on:
+      - back
     ports:
       - 8080:8080
-    # links:
-    #   - back
 
   back:
     build: ./back
@@ -40,6 +38,7 @@ services:
       - ./back:/rails_app
       - ~/.bashrc:/root/.bashrc:ro
       - ~/.bash_profile:/etc/profile:ro
+    # command: bundle exec puma -C config/puma.rb
     # command: rails s -p 3000 -b '0.0.0.0'
     command: /bin/ash
     tty: true
@@ -49,7 +48,18 @@ services:
       - 3000:3000
     links:
       - db
-      # - front
+
+  web:
+    build: ./web
+    volumes:
+      - ./back:/rails_app
+      - ./web/nginx.conf:/etc/nginx/conf.d/webapp.conf
+    ports:
+      - 80:80
+    depends_on:
+      - back
+    links:
+      - back
 
 volumes:
   volume-db:
