@@ -1,3 +1,3 @@
 module.exports = {
-  publicPath: "/catsplash/"
+  publicPath: process.env.VUE_APP_NODE_ENV === "production" ? "/catsplash/" : ""
 };
