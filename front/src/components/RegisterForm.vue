@@ -21,7 +21,8 @@
                 v-model="RegisterData.password_confirmation"
               />
             </b-field>
-            <b-button type="is-success" @click="accountRegister">登録</b-button>
+            <b-button v-if="!is_loading" type="is-success" @click="accountRegister">登録</b-button>
+            <b-button v-else loading type="is-success">登録</b-button>
           </div>
         </div>
       </div>
@@ -40,7 +41,8 @@ export default {
         email: "",
         password: "",
         password_confirmation: ""
-      }
+      },
+      is_loading: ""
     };
   },
   methods: {
@@ -50,9 +52,13 @@ export default {
         return false;
       }
 
+      this.is_loading = true;
       await this.$store
         .dispatch("auth/accountRegister", this.RegisterData)
-        .catch(e => console.log(e));
+        .then(() => (this.is_loading = false))
+        .catch(e => {
+          (this.is_loading = false), console.log(e);
+        });
 
       // ユーザ登録API成功なら画面遷移
       if (this.$store.state.auth.httpresponse === httpResponse.SUCCSESS) {
