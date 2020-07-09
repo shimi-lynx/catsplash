@@ -33,17 +33,14 @@ export default {
       column_1_photoData: null,
       column_2_photoData: null,
       column_3_photoData: null,
-      params: {
-        photo: {
-          account_id: 9
-        }
-      }
+      is_account_confirmation_success: this.$route.query
+        .account_confirmation_success
     };
   },
   methods: {
     async getPhotoLists() {
       console.log("start get photo data");
-      const response = await axios.get("/photos", this.params);
+      const response = await axios.get("/photos");
       console.log(response);
       let i = 3;
       let column_1_photoData = [];
@@ -70,6 +67,14 @@ export default {
   },
   computed: {
     ...mapGetters({ currentUserID: "auth/currentUserID" })
+  },
+  mounted() {
+    if (this.is_account_confirmation_success) {
+      this.$store.dispatch(
+        "toast/success",
+        "アカウントの有効化に成功！いつでもログイン出来ます！！"
+      );
+    }
   },
   watch: {
     $route: {
