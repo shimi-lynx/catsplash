@@ -11,7 +11,14 @@
             <b-field label="パスワード">
               <b-input type="password" password-reveal v-model="LoginData.password" />
             </b-field>
-            <b-button type="is-success" @click="login">Log in</b-button>
+            <div class="columns">
+              <div class="column is-4">
+                <b-button type="is-success" @click="login">Log in</b-button>
+              </div>
+              <div class="column is-4 is-offset-4 has-text-right">
+                <b-button type="is-warning" @click="easyLogin">簡単Log in</b-button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -24,14 +31,22 @@ export default {
   data() {
     return {
       LoginData: {
-        email: "hoge@email.com",
-        password: "password"
+        email: "",
+        password: ""
       }
     };
   },
   methods: {
     async login() {
       await this.$store.dispatch("auth/login", this.LoginData);
+      this.$router.push("/");
+    },
+    async easyLogin() {
+      const easyLoginData = {
+        email: "guest@email.com",
+        password: "password"
+      };
+      await this.$store.dispatch("auth/login", easyLoginData);
       this.$router.push("/");
     }
   }
