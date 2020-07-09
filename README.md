@@ -42,7 +42,7 @@ https://shimi-lynx.github.io/catsplash/
 - いいね機能
 
 ## 課題
-もろもろの課題はissueにまとめました
+もろもろの課題は[issue](https://github.com/shimi-lynx/catsplash/issues)にまとめました
 - 機能の拡充
   - 画像削除機能
   - ログインユーザがいいね！した画像の一覧表示機能
