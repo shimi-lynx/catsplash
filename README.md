@@ -1,4 +1,4 @@
-# catsplash
+# CatSplash
 猫画像投稿サイト。Vue.js x Railsで作成した個人制作のポートフォリオです。
 
 [Unsplash](https://unsplash.com/)の素晴らしさに感銘を受けて作成しました。
