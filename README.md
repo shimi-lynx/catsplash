@@ -31,6 +31,7 @@ https://shimi-lynx.github.io/catsplash/
   - VPC
   - RDS(MySQL)
   - S3
+  - CloudFront
   - Route53
   - ECS(EC2で起動)
   - ALB
