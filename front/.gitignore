@@ -1,6 +1,5 @@
 .DS_Store
 node_modules
-/dist
 
 /tests/e2e/reports/
 selenium-debug.log
@@ -10,6 +9,7 @@ geckodriver.log
 # local env files
 .env.local
 .env.*.local
+.env
 
 # Log files
 npm-debug.log*

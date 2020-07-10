@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'health/', to: 'health_check#index'
   namespace :api do
       get 'photos/s3', to: 'photos#presigned_post_data', as: 'photo_upload'
       get 'photos/', to: 'photos#index', as: 'index_photo'
