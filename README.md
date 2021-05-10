@@ -1,9 +1,10 @@
 # CatSplash
-猫画像投稿サイト。Vue.js x Railsで作成した個人制作のポートフォリオです。
+※ 現在はサービス停止中になります
+
+猫画像投稿サイト。Vue.js x Rails(APIモード)で作成した個人制作のポートフォリオです。
 
 [Unsplash](https://unsplash.com/)の素晴らしさに感銘を受けて作成しました。
 
-ユーザ登録せずに各機能をお試し頂ける簡単ログイン機能がありますので、画面右上の「Log in / Sign up」をクリック→「簡単Log in」ボタンより是非お試し下さい。
 ![トップページ](https://user-images.githubusercontent.com/56603283/87071005-928d5a00-c254-11ea-9efa-8d205813c176.jpg)
 
 ---
